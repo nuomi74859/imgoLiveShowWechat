@@ -100,7 +100,8 @@
     };
     return self;
 })(document.body.style,window.jQuery);
-;//define(function(require){
+;
+//define(function(require){
 //    require('zepto');
 //    $(document).on({
 //        'ajaxStop':function(){

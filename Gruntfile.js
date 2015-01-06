@@ -1,11 +1,12 @@
 module.exports = function(grunt) {
-
+    'use strict';
+    grunt.util.linefeed = '\n';
     require('load-grunt-tasks')(grunt);
     grunt.initConfig({
         pkg: grunt.file.readJSON('package.json'),
         concat: {
             options: {
-                separator: ';'
+                separator: ';\n'
             },
             dist: {
                 src:'src/**/*.js',
