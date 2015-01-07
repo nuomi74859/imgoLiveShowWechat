@@ -1,0 +1,13 @@
+[data-imgo-plugin=canvasGame] {
+  position: relative;
+  text-align: center;
+  overflow: hidden;
+  p {
+    font-size: 18px;
+  }
+  canvas {
+    position: absolute;
+    top: 0;
+    left: 0;
+  }
+}

@@ -1,102 +1,102 @@
 (function(bodyStyle,$) {
+
     $.fn.canvasGame = function(options){
         'use strict';
         var self = this;
         var opt = $.extend({
-            target:'canvas',
-            img:'',
-            percent:0.5,
-            loadTarget:'#ajax-load',
-            loadLocation:'/mobileLoad.html'
+            info:'没有中奖',
+            percent:0.5
         }, options);
-//        bodyStyle.mozUserSelect = 'none';
-//        bodyStyle.webkitUserSelect = 'none';
+        bodyStyle.mozUserSelect = 'none';
+        bodyStyle.webkitUserSelect = 'none';
 
-        var img = new Image();
-        var canvas = document.querySelector(opt.target);
-        var $canvas = self;
+        if(self.data('imgo-options')) {
+            var info = self.data('imgo-options').info;
+            if(info) {
+                opt.info = info;
+            }
+        }
+
+//      建立刮开信息
+        self.append(
+            $('<p>').text(opt.info)
+        );
+//      建立画布
+        self.append('<canvas></canvas>');
+        console.log(self.data());
+        var canvas  = self.children('canvas').get(0);
+        var $canvas = self.children('canvas');
         canvas.style.backgroundColor='transparent';
-        canvas.style.position = 'relative';
 
-        img.addEventListener('load', function(e) {
-            var ctx;
-            var w = $canvas.width(),
-                h = $canvas.height();
 
-            var mousedown = false;
+        var ctx;
+        var w = self.width(),
+            h = self.height();
 
-            function layer(ctx) {
-                ctx.fillStyle = 'gray';
-                ctx.fillRect(0, 0, w, h);
-            }
+        var mousedown = false;
 
-            function eventDown(e){
-                e.preventDefault();
-                mousedown=true;
-            }
+        function layer(ctx) {
+            ctx.fillStyle = 'gray';
+            ctx.fillRect(0, 0, w, h);
+        }
 
-            function eventCallback() {
-                var data=ctx.getImageData(0,0,w,h).data;
-                for(var i=0,j=0;i<data.length;i+=4){
-                    if(data[i] && data[i+1] && data[i+2] && data[i+3]){
-                        j++;
-                    }
+        function eventDown(e){
+            e.preventDefault();
+            mousedown=true;
+        }
+
+
+        function eventUp(e){
+            e.preventDefault();
+            mousedown = false;
+        }
+
+        function eventMove(e){
+            e.preventDefault();
+            e = e.originalEvent;
+            if(mousedown) {
+                if(e.changedTouches){
+                    e = e.changedTouches[e.changedTouches.length-1];
                 }
-                if(j<=w*h*opt.percent){
-                    $canvas.off();
-                    $(opt.loadTarget).empty().load(opt.loadLocation);
-                }
+                var x = (e.clientX + document.body.scrollLeft || e.pageX) - offsetX || 0,
+                    y = (e.clientY + document.body.scrollTop  || e.pageY) - offsetY || 0;
+                ctx.beginPath();
+                ctx.arc(x, y, 20, 0, Math.PI * 2);
+                ctx.fill();
+
             }
+        }
 
-            function eventUp(e){
-                e.preventDefault();
-                mousedown = false;
-                eventCallback();
-            }
+        canvas.width  = w;
+        canvas.height = h;
 
-            function eventMove(e){
-                e.preventDefault();
-
-                if(mousedown) {
-                    if(e.changedTouches){
-                        e=e.changedTouches[e.changedTouches.length-1];
-                    }
-                    var x = (e.clientX + document.body.scrollLeft || e.pageX) - offsetX || 0,
-                        y = (e.clientY + document.body.scrollTop || e.pageY) - offsetY || 0;
-                    ctx.beginPath();
-                    ctx.arc(x, y, 20, 0, Math.PI * 2);
-                    ctx.fill();
-
-                }
-                eventCallback();
-            }
-
-            canvas.width=w;
-            canvas.height=h;
-            canvas.style.backgroundImage='url('+img.src+')';
-            ctx=canvas.getContext('2d');
-            ctx.fillStyle='transparent';
-            layer(ctx);
-            var offsetX = $canvas.offset().left,
+        ctx           = canvas.getContext('2d');
+        ctx.fillStyle ='transparent';
+        layer(ctx);
+        var offsetX = $canvas.offset().left,
             offsetY = $canvas.offset().top;
-            ctx.globalCompositeOperation = 'destination-out';
+        ctx.globalCompositeOperation = 'destination-out';
 
-//            canvas.addEventListener('touchstart', eventDown);
-//            canvas.addEventListener('touchend', eventUp);
-//            canvas.addEventListener('touchmove', eventMove);
-//            canvas.addEventListener('mousedown', eventDown);
-//            canvas.addEventListener('mouseup', eventUp);
-//            canvas.addEventListener('mousemove', eventMove);
-            $canvas.on({
-                'touchstart':eventDown,
-                'touchend':eventUp,
-                'touchmove':eventMove,
-                'mousedown':eventDown,
-                'mouseup':eventUp,
-                'mousemove':eventMove
-            });
+        $canvas.on({
+            'touchstart':eventDown,
+            'touchend':eventUp,
+            'touchmove':eventMove,
+            'mousedown':eventDown,
+            'mouseup':eventUp,
+            'mousemove':eventMove
         });
-        img.src = opt.img;
+
+        return self;
     };
-    return self;
+
+//    data api
+//    ========
+    var canvasGame = '[data-imgo-plugin="canvasGame"]';
+    $(window).on('load',function(){
+        $(canvasGame).each(function(){
+            $canvasGame = $(this);
+            $canvasGame.canvasGame();
+        });
+    });
+
 })(document.body.style,window.jQuery);

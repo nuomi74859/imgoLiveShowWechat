@@ -1,6 +1,6 @@
 html {
-  height: 100%;
-  overflow: hidden;
+//  height: 100%;
+//  overflow: hidden;
 }
 body {
   min-width: 320px;
@@ -16,3 +16,6 @@ div, *:after, *:before {
   -moz-box-sizing: border-box;
   box-sizing: border-box;
 }
+
+@import "../normalize";
+@import "../plugin/canvasGame";
