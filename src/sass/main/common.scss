@@ -1,21 +1,4 @@
-html {
-//  height: 100%;
-//  overflow: hidden;
-}
-body {
-  min-width: 320px;
-  height: 100%;
-  position: relative;
-  overflow: auto;
-  overflow-x: hidden;
-  font-family: "Segoe UI", "Lucida Grande", Helvetica, Arial, "Microsoft YaHei", FreeSans, Arimo, "Droid Sans", "wenquanyi micro hei", "Hiragino Sans GB", "Hiragino Sans GB W3", sans-serif;
-  -webkit-font-smoothing: antialiased;
-}
-div, *:after, *:before {
-  -webkit-box-sizing: border-box;
-  -moz-box-sizing: border-box;
-  box-sizing: border-box;
-}
 
 @import "../normalize";
 @import "../plugin";
+@import "../base";
