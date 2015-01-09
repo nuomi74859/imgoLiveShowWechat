@@ -81,7 +81,6 @@ module.exports = function(grunt) {
                 port:8000,
                 hostname:'*',
                 debug:true,
-//                keepalive:true,
                 livereload:3000
             },
             server: {
@@ -120,16 +119,6 @@ module.exports = function(grunt) {
             }
         }
     });
-
-//    grunt.loadNpmTasks('grunt-contrib-uglify');
-//    grunt.loadNpmTasks('grunt-contrib-watch');
-//    grunt.loadNpmTasks('grunt-contrib-concat');
-//    grunt.loadNpmTasks('grunt-contrib-sass');
-//    grunt.loadNpmTasks('grunt-contrib-compass');
-//    grunt.loadNpmTasks('grunt-contrib-htmlmin');
-//    grunt.loadNpmTasks('grunt-contrib-imagemin');
-//    grunt.loadNpmTasks('grunt-contrib-connect');
-
 
     grunt.registerTask('default', ['uglify','concat','compass','htmlmin','imagemin']);
     grunt.registerTask('server',['connect','watch']);
