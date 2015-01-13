@@ -30,19 +30,34 @@ module.exports = function(grunt) {
             }
         },
         compass: {
-            options: {
-                sassDir:'src/sass/main',
-                cssDir:'css',
-                imagesDir:'images',
-                outputStyle:'compressed',
-                assetCacheBuster:false
+            default: {
+                options: {
+                    sassDir:'src/sass/main',
+                    cssDir:'css',
+                    imagesDir:'images',
+                    outputStyle:'compressed',
+                    assetCacheBuster:false
+                },
+                dist: {
+                    files:[{
+                        expand:true,
+                        src:'**/*.scss'
+                    }]
+                }
             },
-            dist: {
-                files:[{
-                    expand:true,
-                    src:'**/*.scss'
-                }]
+            sprite: {
+                options: {
+                    sassDir:'src/sass',
+                    specify: 'src/sass/spriter.scss',
+                    cssDir:'css',
+//                    cssPath:'cssPath',
+                    imagesDir:'images',
+                    imagesPath: 'src/images',
+                    outputStyle:'compressed',
+                    assetCacheBuster:false
+                }
             }
+
         },
         htmlmin: {
             options: {
