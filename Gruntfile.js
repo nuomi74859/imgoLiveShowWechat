@@ -34,7 +34,9 @@ module.exports = function(grunt) {
                 options: {
                     sassDir:'src/sass/main',
                     cssDir:'css',
+                    generatedImagesDir: 'src/images',
                     imagesDir:'images',
+                    spriteLoadPath: 'src/sass/sprite',
                     outputStyle:'compressed',
                     assetCacheBuster:false
                 },
@@ -44,19 +46,23 @@ module.exports = function(grunt) {
                         src:'**/*.scss'
                     }]
                 }
-            },
-            sprite: {
-                options: {
-                    sassDir:'src/sass',
-                    specify: 'src/sass/spriter.scss',
-                    cssDir:'css',
-//                    cssPath:'cssPath',
-                    imagesDir:'images',
-                    imagesPath: 'src/images',
-                    outputStyle:'compressed',
-                    assetCacheBuster:false
-                }
             }
+//            sprite: {
+//                options: {
+//                    sassDir:'src/sass',
+//                    specify: 'src/sass/sprite/spriter.scss',
+//                    cssDir:'css',
+////                    generatedImagesPath: 'src/images2',
+//                    generatedImagesDir: 'src/images',
+//                    imagesDir:'images',
+////                    imagesPath: 'images3',
+////                    httpPath: '/111',
+////                    httpImagesPath: '/images4',
+//                    spriteLoadPath: 'src/sass/sprite',
+//                    outputStyle:'compressed',
+//                    assetCacheBuster:false
+//                }
+//            }
 
         },
         htmlmin: {
@@ -84,9 +90,9 @@ module.exports = function(grunt) {
             dist: {
                 files: [{
                     expand:true,
-                    cwd:'src',
+                    cwd:'src/images',
                     src:['**/*.{png,jpg,jpeg,ico}'],
-                    dest:''
+                    dest:'images'
                 }]
             }
 
